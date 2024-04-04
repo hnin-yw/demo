@@ -86,5 +86,5 @@ public class GroupController {
    	    return "redirect:/groups";  
 
     }
-    //git commit test
+    //create new branch and commit
 }
