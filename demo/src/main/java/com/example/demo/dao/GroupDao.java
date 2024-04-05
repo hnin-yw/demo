@@ -11,5 +11,5 @@ public interface GroupDao {
 
 	Group save(Group group);
 
-    void deleteById(int id);
+	void deleteById(int id);
 }
