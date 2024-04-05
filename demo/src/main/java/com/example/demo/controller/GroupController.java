@@ -18,73 +18,71 @@ import org.springframework.ui.Model;
 
 @Controller
 public class GroupController {
-	
-    private final GroupService groupService;
 
-    @Autowired
-    public GroupController(GroupService groupService) {
-        this.groupService = groupService;
-    }
+	private final GroupService groupService;
 
-    @GetMapping("/groups")
-    public String index(Model model) {
-        List<Group> listGroups = groupService.findAlls();
-        System.out.println(listGroups.size());
-        
-        model.addAttribute("listGroups", listGroups);
-        return "list";
-    }
+	@Autowired
+	public GroupController(GroupService groupService) {
+		this.groupService = groupService;
+	}
 
-    @RequestMapping("/groups/create")
-    public String create(Model model) {
-    	Group gp = new Group();
-        model.addAttribute("group", gp);
+	@GetMapping("/groups")
+	public String index(Model model) {
+		List<Group> listGroups = groupService.findAlls();
+		System.out.println(listGroups.size());
 
-        return "create";
-    }
-    
-    @RequestMapping(value="/groups", method = RequestMethod.POST)
-    public String saveGroup(@RequestParam("group_code") String group_code,
-            @RequestParam("group_name") String group_name) {
-    	Group group =new Group();
-    	group.setGroupCode(group_code);
-    	group.setGroupName(group_name);
-        groupService.save(group);
-        return "redirect:/groups";
-    }
+		model.addAttribute("listGroups", listGroups);
+		return "list";
+	}
 
-    @RequestMapping("/groups/edit/{id}")
-    public ModelAndView edit(@PathVariable(name = "id") int id) {
-        ModelAndView mav = new ModelAndView("edit");
-        Group group = groupService.findGroupById(id);
-        mav.addObject("group", group);
+	@RequestMapping("/groups/create")
+	public String create(Model model) {
+		Group gp = new Group();
+		model.addAttribute("group", gp);
 
-        return mav;
-    }
-    
-    @RequestMapping(value = "/groups/update", method = RequestMethod.POST)
-    public String updateGroup(@RequestParam("id") int id,
-            @RequestParam("group_code") String group_code,
-            @RequestParam("group_name") String group_name) {
-    	Group group = groupService.findGroupById(id);
-    	if (group == null) {
-            throw new RuntimeException("Group to update doesn't exist");
-        }
-    	group.setGroupCode(group_code);
-    	group.setGroupName(group_name);
-    	groupService.save(group);
-    	return "redirect:/groups";
-    }
+		return "create";
+	}
 
-    @RequestMapping("/groups/delete/{id}")
-    public String deleteGroup(@PathVariable int id){
-    	Group gp = groupService.findGroupById(id);
-        if(gp == null){
-            throw new RuntimeException("Group Id not found");
-        }
-        groupService.deleteById(id);
-   	    return "redirect:/groups";  
+	@RequestMapping(value = "/groups", method = RequestMethod.POST)
+	public String saveGroup(@RequestParam("group_code") String group_code,
+			@RequestParam("group_name") String group_name) {
+		Group group = new Group();
+		group.setGroupCode(group_code);
+		group.setGroupName(group_name);
+		groupService.save(group);
+		return "redirect:/groups";
+	}
 
-    }
-    //git commit test
+	@RequestMapping("/groups/edit/{id}")
+	public ModelAndView edit(@PathVariable(name = "id") int id) {
+		ModelAndView mav = new ModelAndView("edit");
+		Group group = groupService.findGroupById(id);
+		mav.addObject("group", group);
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/groups/update", method = RequestMethod.POST)
+	public String updateGroup(@RequestParam("id") int id, @RequestParam("group_code") String group_code,
+			@RequestParam("group_name") String group_name) {
+		Group group = groupService.findGroupById(id);
+		if (group == null) {
+			throw new RuntimeException("Group to update doesn't exist");
+		}
+		group.setGroupCode(group_code);
+		group.setGroupName(group_name);
+		groupService.save(group);
+		return "redirect:/groups";
+	}
+
+	@RequestMapping("/groups/delete/{id}")
+	public String deleteGroup(@PathVariable int id) {
+		Group gp = groupService.findGroupById(id);
+		if (gp == null) {
+			throw new RuntimeException("Group Id not found");
+		}
+		groupService.deleteById(id);
+		return "redirect:/groups";
+
+	}
 }

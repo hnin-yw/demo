@@ -13,16 +13,16 @@ import jakarta.transaction.Transactional;
 public class GroupServiceImpl implements GroupService {
 
 	GroupDao groupDao;
-	
+
 	@Autowired
-    public GroupServiceImpl(GroupDao groupDao){
+	public GroupServiceImpl(GroupDao groupDao) {
 		this.groupDao = groupDao;
-    }
-    
-    @Override
-    public List<Group> findAlls() {
-        return groupDao.getAlls();
-    }
+	}
+
+	@Override
+	public List<Group> findAlls() {
+		return groupDao.getAlls();
+	}
 
 	@Override
 	public String findById(int id) {
@@ -35,16 +35,16 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.findGroupById(id);
 	}
 
-    @Override
-    @Transactional
-    public Group save(Group group) {
-        return groupDao.save(group);
-    }
+	@Override
+	@Transactional
+	public Group save(Group group) {
+		return groupDao.save(group);
+	}
 
 	@Override
 	@Transactional
 	public int deleteById(int id) {
 		groupDao.deleteById(id);
-        return id;
+		return id;
 	}
 }

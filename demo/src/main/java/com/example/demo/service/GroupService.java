@@ -7,11 +7,11 @@ import com.example.demo.entity.*;
 public interface GroupService {
 	public List<Group> findAlls();
 
-    public String findById(int id);
+	public String findById(int id);
 
-    public Group findGroupById(int id);
+	public Group findGroupById(int id);
 
-    public Group save(Group group);
+	public Group save(Group group);
 
-    public int deleteById(int id);
+	public int deleteById(int id);
 }
